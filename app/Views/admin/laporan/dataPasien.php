@@ -38,6 +38,7 @@
                 <th>Nama Pasien</th>
                 <th>Alamat</th>
                 <th>Nomer Telphone</th>
+                <th>Kode Resep</th>
             </tr>
         </thead>
         <tbody>
@@ -47,10 +48,11 @@
             ?>
                 <tr>
                     <td><?= $i ?></td>
-                    <td><?= $row->kd_pasien ?></td>
                     <td><?= $row->username ?></td>
                     <td><?= $row->alamat ?></td>
                     <td><?= $row->no_tlp ?></td>
+                    <td><?= $row->tgl_periksa ?></td>
+                    <td><?= $row->kd_resep ?></td>
                 </tr>
             <?php
                 $i++;

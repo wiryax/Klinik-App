@@ -30,13 +30,13 @@
 
 <body>
     <h1>Laporan Data Pembayaran</h1>
-    <table class="table text-center">
+    <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Kode Transaksi</th>
-                <th>Kode Pemeriksaan</th>
-                <th>Tanggal</th>
+                <th>Nama Pasien</th>
+                <th>Tanggal Pemeriksaan</th>
+                <th>Tanggal Pembayaran</th>
                 <th>Status</th>
                 <th>Biaya</th>
             </tr>
@@ -48,8 +48,8 @@
             ?>
                 <tr>
                     <td><?= $i ?></td>
-                    <td><?= $row->no_transaksi ?></td>
-                    <td><?= $row->kd_pemeriksaan ?></td>
+                    <td><?= $row->username ?></td>
+                    <td><?= $row->tgl_periksa ?></td>
                     <td><?= $row->tgl ?></td>
                     <td><?= $row->status ?></td>
                     <td><?= $row->biaya ?></td>

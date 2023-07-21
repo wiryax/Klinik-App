@@ -119,7 +119,7 @@ class admin extends BaseController
         $model = new PasienModel();
         $domPDF = new Dompdf();
 
-        $data = ['lap_pasien' => $model->db->table('pasien')->select('*')->get()->getResult()];
+        $data = ['lap_pasien' => $model->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult()];
 
         return view('admin/laporan/dataPasien', $data);
 
@@ -135,7 +135,7 @@ class admin extends BaseController
         $model = new PasienModel();
         $domPDF = new Dompdf();
 
-        $data = ['lap_pembayaran' => $model->db->table('pembayaran')->select('*')->where('status', 'Lunas')->get()->getResult()];
+        $data = ['lap_pembayaran' => $model->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, pembayaran.tgl, pembayaran.biaya, pembayaran.status')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->orWhere('pembayaran.status', 'Menunggu Verifikasi')->get()->getResult()];
 
         return view('admin/laporan/dataPembayaran', $data);
 
@@ -167,7 +167,7 @@ class admin extends BaseController
         $model = new PasienModel();
         $domPDF = new Dompdf();
 
-        $data = ['lap_diagnosa' => $model->db->table('informasi_pemeriksaan')->select('*')->get()->getResult()];
+        $data = ['lap_diagnosa' => $model->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult()];
 
         return view('admin/laporan/dataDiagnosa', $data);
 

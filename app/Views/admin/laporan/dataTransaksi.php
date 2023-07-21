@@ -30,14 +30,14 @@
 
 <body>
     <h1>Laporan Data Transaksi</h1>
-    <table class="table text-center">
+    <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Kode Transaksi</th>
+                <th>Nama Pasien</th>
                 <th>Kode Pemeriksaan</th>
-                <th>Tanggal</th>
-                <th>Status</th>
+                <th>Tanggal pembayaran</th>
+                <th>Status Pembayaran</th>
                 <th>Biaya</th>
             </tr>
         </thead>
