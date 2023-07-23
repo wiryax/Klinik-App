@@ -9,6 +9,7 @@ class Home extends BaseController
 {
     public function index()
     {
+        // lang feature
         return view('Login/Login-page');
     }
     public function Login()
