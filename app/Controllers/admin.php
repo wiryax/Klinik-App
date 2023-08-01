@@ -3,21 +3,25 @@
 namespace App\Controllers;
 
 use App\Models\AdminModel;
-use App\Models\PasienModel;
-use \Dompdf\Dompdf;
+use App\Models\PasienModel;;
 
 class admin extends BaseController
 {
     protected $helpers = ['form'];
+    protected $AdminModel;
+    protected $PasienModel;
+    public function __construct()
+    {
+        $this->AdminModel   = new AdminModel();
+        $this->PasienModel  = new PasienModel();
+    }
     public function index()
     {
         if (session()->has('status') == false) {
             return redirect()->to('/');
             die;
         }
-        $model = new AdminModel();
-
-        $data = ['dataPasien' => $model->getListPasien(), 'dataObat' => $model->db->table('obat')->select('kd_obat, nama_obat')->get()->getResult(), 'validation' => validation_errors()];
+        $data = ['dataPasien' => $this->AdminModel->getListPasien(), 'dataObat' => $this->AdminModel->db->table('obat')->select('kd_obat, nama_obat')->get()->getResult(), 'validation' => validation_errors()];
         return view('admin/dataPasien', $data);
     }
     public function dataPasien()
@@ -26,10 +30,12 @@ class admin extends BaseController
     }
     public function daftarPembayaran()
     {
-        $model = new AdminModel();
-
+        if (session()->has('status') == false) {
+            return redirect()->to('/');
+            die;
+        }
         $data = [
-            'dataPembayaran' => $model->dataPembayaran()
+            'dataPembayaran' => $this->AdminModel->dataPembayaran()
         ];
 
         return view('admin/dataPembayaran', $data);
@@ -41,11 +47,10 @@ class admin extends BaseController
             die;
         }
 
-        $model = new AdminModel();
         $kd_pemeriksaan = $this->request->getVar('kd_pemeriksaan');
-        $dataObat = $this->request->getVar('kd_obat');
-        $hasil_periksa = $this->request->getVar('hasil_periksa');
-        $kd_pasien = $this->request->getVar('kd_pasien');
+        $dataObat       = $this->request->getVar('kd_obat');
+        $hasil_periksa  = $this->request->getVar('hasil_periksa');
+        $kd_pasien      = $this->request->getVar('kd_pasien');
         if (!$this->validate([
             'kd_obat' => [
                 'rules' => 'required',
@@ -59,7 +64,7 @@ class admin extends BaseController
             return redirect()->to('admin/')->withInput();
         }
 
-        $model->dataDiagnosa($hasil_periksa, $kd_pasien, $kd_pemeriksaan, $dataObat);
+        $this->AdminModel->dataDiagnosa($hasil_periksa, $kd_pasien, $kd_pemeriksaan, $dataObat);
 
         session()->setFlashdata('saveDiagnosis', 'Data Behasil Diinput');
 
@@ -71,7 +76,6 @@ class admin extends BaseController
             return redirect()->to('/');
             die;
         }
-        $model = new AdminModel();
         $no_transaksi = $this->request->getVar('no_transaksi');
 
         $model->db->table('pembayaran')->where('no_transaksi', $no_transaksi)->set(['status' => 'Lunas'])->update();
@@ -92,8 +96,7 @@ class admin extends BaseController
             return redirect()->to('/');
             die;
         }
-        $model = new PasienModel();
-        $data = ['dataMasukan' => $model->db->table('masukan')->select('*')->get()->getResult()];
+        $data = ['dataMasukan' => $this->AdminModel->db->table('masukan')->select('*')->get()->getResult()];
         return view('admin/Masukan', $data);
     }
     public function Laporan()
@@ -102,13 +105,12 @@ class admin extends BaseController
             return redirect()->to('/');
             die;
         }
-        $model = new PasienModel();
         $data = [
-            'lap_pasien' => $model->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult(),
+            'lap_pasien' => $this->PasienModel->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult(),
 
-            'lap_pembayaran' => $model->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, pembayaran.tgl, pembayaran.biaya, pembayaran.status')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->orWhere('pembayaran.status', 'Menunggu Verifikasi')->get()->getResult(),
+            'lap_pembayaran' => $this->PasienModel->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, pembayaran.tgl, pembayaran.biaya, pembayaran.status')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->orWhere('pembayaran.status', 'Menunggu Verifikasi')->get()->getResult(),
 
-            'lap_diagnosa' => $model->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult()
+            'lap_diagnosa' => $this->PasienModel->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult()
         ];
 
         return view('admin/Laporan', $data);
@@ -116,82 +118,22 @@ class admin extends BaseController
 
     public function cetakDataPasien()
     {
-        $model = new PasienModel();
-        $domPDF = new Dompdf();
-
-        $data = ['lap_pasien' => $model->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult()];
+        $data = ['lap_pasien' => $this->PasienModel->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult()];
 
         return view('admin/laporan/dataPasien', $data);
-
-        // $domPDF->loadHtml($html);
-        // $domPDF->setPaper('A4', 'potrait');
-        // $domPDF->render();
-        // $domPDF->stream('Laporan_Data_Pasien.pdf');
-
-        // return redirect()->to('/admin/Laporan');
     }
     public function cetakPembayaran()
     {
-        $model = new PasienModel();
-        $domPDF = new Dompdf();
 
-        $data = ['lap_pembayaran' => $model->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, pembayaran.tgl, pembayaran.biaya, pembayaran.status')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->orWhere('pembayaran.status', 'Menunggu Verifikasi')->get()->getResult()];
+        $data = ['lap_pembayaran' => $this->PasienModel->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, pembayaran.tgl, pembayaran.biaya, pembayaran.status')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->orWhere('pembayaran.status', 'Menunggu Verifikasi')->get()->getResult()];
 
         return view('admin/laporan/dataPembayaran', $data);
-
-        // $domPDF->loadHtml($html);
-        // $domPDF->setPaper('A4', 'potrait');
-        // $domPDF->render();
-        // $domPDF->stream('Laporan_Data_Pembayaran.pdf');
-
-        // return redirect()->to('/admin/Laporan');
     }
-    // public function cetakTransaksi()
-    // {
-    //     $model = new PasienModel();
-    //     $domPDF = new Dompdf();
-
-    //     $data = ['lap_transaksi' => $model->db->table('pembayaran')->select('*')->get()->getResult()];
-
-    //     $html = view('admin/laporan/dataTransaksi', $data);
-
-    //     $domPDF->loadHtml($html);
-    //     $domPDF->setPaper('A4', 'potrait');
-    //     $domPDF->render();
-    //     $domPDF->stream('Laporan_Data_Transaksi.pdf');
-
-    //     return redirect()->to('/admin/Laporan');
-    // }
     public function cetakDataDiagnosa()
     {
-        $model = new PasienModel();
-        $domPDF = new Dompdf();
 
-        $data = ['lap_diagnosa' => $model->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult()];
+        $data = ['lap_diagnosa' => $this->PasienModel->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult()];
 
         return view('admin/laporan/dataDiagnosa', $data);
-
-        // $domPDF->loadHtml($html);
-        // $domPDF->setPaper('A4', 'potrait');
-        // $domPDF->render();
-        // $domPDF->stream('Laporan_Data_Diagnosa.pdf');
-
-        // return redirect()->to('/admin/Laporan');
     }
-    // public function cetakDataResep()
-    // {
-    //     $model = new PasienModel();
-    //     $domPDF = new Dompdf();
-
-    //     $data = ['lap_resep' => $model->db->table('resep_obat')->select('*')->get()->getResult()];
-
-    //     $html = view('admin/laporan/dataResepObat', $data);
-
-    //     $domPDF->loadHtml($html);
-    //     $domPDF->setPaper('A4', 'potrait');
-    //     $domPDF->render();
-    //     $domPDF->stream('Laporan_Data_ResepObat.pdf');
-
-    //     return redirect()->to('/admin/Laporan');
-    // }
 }

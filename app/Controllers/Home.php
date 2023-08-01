@@ -7,9 +7,16 @@ use App\Models\PasienModel;
 
 class Home extends BaseController
 {
+    public function __construct()
+    {
+        $this->lang = "Home/Home.";
+    }
     public function index()
     {
-        return view('Login/Login-page');
+        $data = [
+            "lang" => $this->lang
+        ];
+        return view('Login/Login-page', $data);
     }
     public function Login()
     {
@@ -26,16 +33,17 @@ class Home extends BaseController
             return redirect()->to('Home/');
         } elseif ($data[0]['role'] === '1') {
             $this->session->set(['admin' => $username, 'status' => true]);
-            return redirect()->to('admin');
+            return redirect()->to('/admin');
         } elseif ($data[0]['role'] === '2') {
             $this->session->set(['pasien' => $username, 'status' => true]);
-            return redirect()->to('pasien');
+            return redirect()->to('/pasien');
         }
     }
     public function Registrasi()
     {
         $data = [
-            'validation' => \Config\Services::validation()
+            'validation' => \Config\Services::validation(),
+            'lang' => 'Registrasi/Registrasi.'
         ];
 
         return view('Login/Registrasi', $data);
@@ -65,6 +73,6 @@ class Home extends BaseController
     public function Logout()
     {
         $this->session->destroy();
-        return redirect()->to('Home/');
+        return redirect()->to('/');
     }
 }

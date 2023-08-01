@@ -32,9 +32,12 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
+//lang routes
+$routes->get('language/(:any)', 'Language::index/$1');
+
 // Home Routes
 $routes->get('/', 'Home::index');
-$routes->get('Home/', 'Home::index');
+$routes->get('{locale}/Home', 'Home::index');
 $routes->get('Home/Logout', 'Home::Logout');
 $routes->post('Home/insertDataPasien', 'Home::insertDataPasien');
 $routes->post('Home/Login', 'Home::Login');
@@ -56,6 +59,8 @@ $routes->post('pasien/kirimMasukan', 'pasien::kirimMasukan');
 // end pasien routs
 
 // admin
+
+$routes->get('{locale}/admin', 'admin::index');
 $routes->get('admin/', 'admin::index');
 $routes->get('admin/daftarPembayaran', 'admin::daftarPembayaran');
 $routes->get('admin/Laporan', 'admin::Laporan');

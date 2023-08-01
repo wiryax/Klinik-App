@@ -54,6 +54,11 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         $this->session = \Config\Services::session();
+        if (!session()->get('lang')) {
+            $this->request->setLocale('id');
+        } else {
+            $this->request->setLocale(session()->get('lang'));
+        }
         // Model
 
     }

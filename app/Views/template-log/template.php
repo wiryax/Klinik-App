@@ -10,8 +10,30 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-primary">
+        <div class="container-fluid d-flex justify-content-end">
+            <span class="me-1">
+                <a href="#offcanvas" class="btn btn-primary border" data-bs-toggle="offcanvas">Select Language</a>
+            </span>
+            <a href="" class="navbar-brand text-light">Klinik Dr. Wulan</a>
+        </div>
+    </nav>
+    <!-- offcanvas content -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul>
+                <li><a href="<?= base_url('language/id') ?>">Indonesia</a></li>
+                <li><a href="<?= base_url('language/en') ?>">English</a></li>
+            </ul>
+        </div>
+    </div>
     <?php $this->renderSection('Login-page'); ?>
     <?php $this->renderSection('Regist-Page'); ?>
+    <script src="/assets/lang.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>

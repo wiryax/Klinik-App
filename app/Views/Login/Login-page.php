@@ -5,10 +5,10 @@
     <div class="row align-items-center">
         <div class="col">
             <div class="mb-5">
-                <h3><strong>Selamat Datang Di Web Site Klinik Dokter Wulan</strong></h3>
+                <h3><strong><?= lang($lang . "Welcome-Header") ?></strong></h3>
             </div>
             <div class="mb-3 text-secondary">
-                <h5>Silahkan Login Untuk Menggunakan Sitem Klinik</h5>
+                <h5><?= lang($lang . "Login-Header") ?></h5>
             </div>
             <?php if (session()->getFlashdata('massage')) : ?>
                 <div class="mb-5">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <form action="/Home/Login" method="post">
+            <form action="<?= base_url() ?>Home/Login" method="post">
                 <div class="mb-3">
                     <input type="text" class="form-control" name="username" placeholder="Username...">
                 </div>
@@ -36,18 +36,18 @@
                         <div class="col-md-4">
                             <div class="form-check-inline form-check">
                                 <input type="checkbox" name="R-me" class="form-check-input">
-                                <label for="R-me" class="form-check-label">Remember Me</label>
+                                <label for="R-me" class="form-check-label"><?= lang($lang . "Cookie-Set") ?></label>
                             </div>
                         </div>
                         <div class="col-md-4 offset-md-4 text-end">
                             <div class="form-check-inline form-check">
-                                <a href="/Home/Registrasi">Regristrasi Akun Baru</a>
+                                <a href="<?= base_url() ?>Home/Registrasi"><?= lang($lang . "Sign-Up") ?></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3 d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <button type="submit" class="btn btn-primary"><?= lang($lang . "Log-in") ?></button>
                 </div>
             </form>
         </div>
