@@ -21,6 +21,15 @@
                     </div>
                 </div>
             <?php endif; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <hr>
+            <div class="input-group" style="width : 20vw;">
+                <span class="input-group-text bg-transparent border-end-0" id="basic-addon1"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control border-start-0" placeholder="search" aria-label="search" id="searchDataPembayaran">
+            </div>
             <table class="table text-center">
                 <thead>
                     <tr>
@@ -31,21 +40,7 @@
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <?php
-                    $i = 1;
-                    foreach ($dataPembayaran as $row) :
-                    ?>
-                        <tr>
-                            <td><?= $i ?></td>
-                            <td><?= $row->username ?></td>
-                            <td><?= $row->tgl ?></td>
-                            <td><span class="badge text-bg-success"><?= $row->status ?></span></td>
-                            <td><button type="button" class="btn btn-primary <?= ($row->status === 'Lunas' || $row->status === 'Menunggu') ? 'disabled' : ''; ?>" data-bs-toggle="modal" data-bs-target="#<?= $row->no_transaksi ?>" data-bs-whatever="@getbootstrap">Verifikasi</button></td>
-                        </tr>
-                    <?php
-                        $i++;
-                    endforeach; ?>
+                <tbody id="data">
                 </tbody>
             </table>
         </div>
@@ -90,4 +85,121 @@
 
 <!-- End Modal Box -->
 
+<script>
+    const tbody = document.getElementById("data")
+    $.ajax({
+        url: "<?= base_url('admin/getDataPembayaranAjax') ?>",
+        method: "POST",
+        success: (data) => {
+            const dataPembayaran = JSON.parse(data)
+            let i = 1
+            if (data.length <= 0) {
+                const tr = $('<tr></tr>')
+                const td = $('<td></td>', {
+                    "colspan": 5
+                }).text("No Have Data")
+                tbody.appendChild(tr)
+                tr.appendChild(td)
+            } else {
+                dataPembayaran.forEach(element => {
+                    const tr = document.createElement('tr')
+                    const td_1 = document.createElement('td')
+                    const td_2 = document.createElement('td')
+                    const td_3 = document.createElement('td')
+                    const td_4 = document.createElement('td')
+                    const td_5 = document.createElement('td')
+
+                    const badge = $("<span></span>", {
+                        "class": "badge text-bg-success"
+                    }).text(element.status).appendTo(td_4)
+                    // const td_6 = document.createElement('td')
+
+                    // td_6.appendChild(badge)
+
+                    const btn = $('<button></button>', {
+                        "class": ["btn btn-primary"],
+                        "type": "button",
+                        "data-bs-toggle": "modal",
+                        "data-bs-target": "#" + element.no_transaksi,
+                        "disabled": element.status === "Menunggu" || element.status === "Lunas" ? true : false
+                    }).text("Verifikasi").appendTo(td_5)
+
+                    td_1.innerHTML = i
+                    td_2.innerHTML = element.username
+                    td_3.innerHTML = element.tgl
+                    // td_5.innerHTML = element.no_transaksi
+                    // td_6.innerHTML = element.kd_pasien
+
+                    tbody.appendChild(tr)
+                    tr.appendChild(td_1)
+                    tr.appendChild(td_2)
+                    tr.appendChild(td_3)
+                    tr.appendChild(td_4)
+                    tr.appendChild(td_5)
+                    // tr.appendChild(td_6)
+                    i++
+                })
+            }
+
+        }
+    })
+
+    $('#searchDataPembayaran').keyup(() => {
+        let data = $('#searchDataPembayaran').val()
+        $.ajax({
+            url: '<?= base_url('admin/getDataPembayaranAjax') ?>',
+            method: 'POST',
+            data: {
+                searchDataPembayaran: data
+            },
+            success: function(data) {
+                const dataPembayaran = JSON.parse(data)
+                console.log(dataPembayaran)
+                let i = 1
+                $('#data').empty()
+                if (data.length <= 0) {
+                    const tr = $('<tr></tr>')
+                    const td = $('<td></td>', {
+                        "colspan": 5
+                    }).text("No Have Data")
+                    tbody.appendChild(tr)
+                    tr.appendChild(td)
+                } else {
+                    dataPembayaran.forEach(element => {
+                        const tr = document.createElement('tr')
+                        const td_1 = document.createElement('td')
+                        const td_2 = document.createElement('td')
+                        const td_3 = document.createElement('td')
+                        const td_4 = document.createElement('td')
+                        const td_5 = document.createElement('td')
+
+                        const badge = $("<span></span>", {
+                            "class": "badge text-bg-success"
+                        }).text(element.status).appendTo(td_4)
+                        const btn = $('<button></button>', {
+                            "class": ["btn btn-primary"],
+                            "type": "button",
+                            "data-bs-toggle": "modal",
+                            "data-bs-target": "#" + element.no_transaksi,
+                            "disabled": element.status === "Menunggu" || element.status === "Lunas" ? true : false
+                        }).text("Verifikasi").appendTo(td_5)
+
+                        td_1.innerHTML = i
+                        td_2.innerHTML = element.username
+                        td_3.innerHTML = element.tgl
+
+                        tbody.appendChild(tr)
+                        tr.appendChild(td_1)
+                        tr.appendChild(td_2)
+                        tr.appendChild(td_3)
+                        tr.appendChild(td_4)
+                        tr.appendChild(td_5)
+                        i++
+                    })
+                }
+            }
+
+        })
+    })
+</script>
 <?php $this->endSection() ?>

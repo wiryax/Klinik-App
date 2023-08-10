@@ -35,8 +35,13 @@ $routes->set404Override();
 //lang routes
 $routes->get('language/(:any)', 'Language::index/$1');
 
+// ajax
+$routes->post('admin/getDataAjax', 'admin::getDataAjax');
+$routes->post('admin/getDataPembayaranAjax', 'admin::getDataPembayaranAjax');
+
 // Home Routes
 $routes->get('/', 'Home::index');
+$routes->get('/Home', 'Home::index');
 $routes->get('{locale}/Home', 'Home::index');
 $routes->get('Home/Logout', 'Home::Logout');
 $routes->post('Home/insertDataPasien', 'Home::insertDataPasien');

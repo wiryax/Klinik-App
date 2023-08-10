@@ -10,6 +10,7 @@ class admin extends BaseController
     protected $helpers = ['form'];
     protected $AdminModel;
     protected $PasienModel;
+    protected $path;
     public function __construct()
     {
         $this->AdminModel   = new AdminModel();
@@ -21,8 +22,31 @@ class admin extends BaseController
             return redirect()->to('/');
             die;
         }
-        $data = ['dataPasien' => $this->AdminModel->getListPasien(), 'dataObat' => $this->AdminModel->db->table('obat')->select('kd_obat, nama_obat')->get()->getResult(), 'validation' => validation_errors()];
+        $data = ['dataPasien' => $this->AdminModel->getListPasien(''), 'dataObat' => $this->AdminModel->db->table('obat')->select('kd_obat, nama_obat')->get()->getResult(), 'validation' => validation_errors()];
         return view('admin/dataPasien', $data);
+    }
+    public function getDataAjax()
+    {
+        $data = $this->request->getVar('search');
+
+        if ($data) {
+            $result = $this->AdminModel->getListPasien($data);
+        } else {
+            $result = $this->AdminModel->getListPasien('');
+        }
+
+        echo json_encode($result);
+    }
+    public function getDataPembayaranAjax()
+    {
+        $data = $this->request->getVar('searchDataPembayaran');
+        if ($data) {
+            $result = $this->AdminModel->dataPembayaran($data);
+        } else {
+            $result = $this->AdminModel->dataPembayaran('');
+        }
+
+        echo json_encode($result);
     }
     public function dataPasien()
     {
@@ -35,7 +59,7 @@ class admin extends BaseController
             die;
         }
         $data = [
-            'dataPembayaran' => $this->AdminModel->dataPembayaran()
+            'dataPembayaran' => $this->AdminModel->dataPembayaran('')
         ];
 
         return view('admin/dataPembayaran', $data);
@@ -78,9 +102,9 @@ class admin extends BaseController
         }
         $no_transaksi = $this->request->getVar('no_transaksi');
 
-        $model->db->table('pembayaran')->where('no_transaksi', $no_transaksi)->set(['status' => 'Lunas'])->update();
+        $this->AdminModel->db->table('pembayaran')->where('no_transaksi', $no_transaksi)->set(['status' => 'Lunas'])->update();
 
-        if ($model->db->affectedRows() === 0) {
+        if ($this->AdminModel->db->affectedRows() === 0) {
             session()->setFlashdata('invalidVerifikasi', 'Verifikasi Ditolak');
             session()->setFlashdata('invalidVerifikasiClass', 'alert alert-danger');
             return redirect()->to('/admin/daftarPembayaran');

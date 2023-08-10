@@ -172,7 +172,8 @@ class pasien extends BaseController
             die;
         }
         $model = new PasienModel();
-        if ($model->deleteAntrian($kd_pemeriksaan) === false) {
+        // dd($model->deleteAntrian($kd_pemeriksaan));
+        if ($model->deleteAntrian($kd_pemeriksaan) == false) {
             session()->setFlashdata('invalid-deleteAntrian', 'Data Antrian Yang Sudah Dibayar Tidak Dapat Dihapus');
             return redirect()->to('/pasien');
         } else {

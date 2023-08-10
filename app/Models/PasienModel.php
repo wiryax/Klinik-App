@@ -90,22 +90,24 @@ class PasienModel extends Model
     {
         $cekDataResep = $this->db->table('resep_obat')->select('kd_resep')->where('kd_pemeriksaan', $kd_pemeriksaan);
         $cekStatusPembayaran = $this->db->table('pembayaran')->select('status')->where('kd_pemeriksaan', $kd_pemeriksaan);
+        // return $cekStatusPembayaran->get()->getResult()[0] == "Menunggu Verifikasi" || $cekStatusPembayaran->get()->getResult()[0] == "Lunas" ? true : false;
+        // die;
         if ($cekStatusPembayaran->countAllResults() != 0)
-            if ($cekStatusPembayaran->get()->getResult()[0]->status === 'Menunggu Verifikasi' || $cekStatusPembayaran->get()->getResult()[0]->status === 'Lunas') {
+            if ($cekStatusPembayaran->get()->getResult()[0] == "Menunggu Verifikasi" || $cekStatusPembayaran->get()->getResult()[0] == "Lunas") {
                 return false;
-                die;
+            } else {
+                if ($cekDataResep->countAllResults() == 0) {
+                    $this->db->table('informasi_pemeriksaan')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
+                    $this->db->table('pembayaran')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
+                    return true;
+                } else {
+                    $kd_resep = $cekDataResep->get()->getResult();
+                    $this->db->table('informasi_pemeriksaan')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
+                    $this->db->table('pembayaran')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
+                    $this->db->table('resep_obat')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
+                    $this->db->table('item_obat')->delete($kd_resep);
+                    return true;
+                }
             }
-        if ($cekDataResep->countAllResults() === 0) {
-            $this->db->table('informasi_pemeriksaan')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
-            $this->db->table('pembayaran')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
-            return true;
-        } else {
-            $kd_resep = $cekDataResep->get()->getResult();
-            $this->db->table('informasi_pemeriksaan')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
-            $this->db->table('pembayaran')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
-            $this->db->table('resep_obat')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
-            $this->db->table('item_obat')->delete($kd_resep);
-            return true;
-        }
     }
 }
