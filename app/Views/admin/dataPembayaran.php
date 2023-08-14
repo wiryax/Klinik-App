@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col">
             <div class="mb-3">
-                <h2 class="text-center">Daftar Pembayaran</h2>
+                <h2 class="text-center"><?= lang($lang . "Payment-List") ?></h2>
             </div>
             <?php if (session()->getFlashdata('invalidVerifikasi')) : ?>
                 <div class="mb-3">
@@ -34,9 +34,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Pasien</th>
-                        <th>Tanggal Transaksi</th>
-                        <th>Status</th>
+                        <th><?= lang($lang . "Name") ?></th>
+                        <th><?= lang($lang . "Payment-Date") ?></th>
+                        <th><?= lang($lang . "Payment-Status") ?></th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,7 +73,7 @@
                             <input type="text" class="form-control" name="no_transaksi" value="<?= $row->no_transaksi ?>" hidden>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
                             <button type="Submit" class="btn btn-primary">Verifikasi</button>
                         </div>
                     </form>
@@ -94,12 +94,10 @@
             const dataPembayaran = JSON.parse(data)
             let i = 1
             if (data.length <= 0) {
-                const tr = $('<tr></tr>')
+                const tr = $('<tr></tr>').appendTo(tbody)
                 const td = $('<td></td>', {
                     "colspan": 5
-                }).text("No Have Data")
-                tbody.appendChild(tr)
-                tr.appendChild(td)
+                }).text("No Have Data").appendTo(tr)
             } else {
                 dataPembayaran.forEach(element => {
                     const tr = document.createElement('tr')
@@ -154,49 +152,46 @@
             },
             success: function(data) {
                 const dataPembayaran = JSON.parse(data)
-                console.log(dataPembayaran)
                 let i = 1
                 $('#data').empty()
-                if (data.length <= 0) {
-                    const tr = $('<tr></tr>')
+                if (dataPembayaran.length <= 0) {
+                    const tr = $('<tr></tr>').appendTo(tbody)
                     const td = $('<td></td>', {
                         "colspan": 5
-                    }).text("No Have Data")
-                    tbody.appendChild(tr)
-                    tr.appendChild(td)
-                } else {
-                    dataPembayaran.forEach(element => {
-                        const tr = document.createElement('tr')
-                        const td_1 = document.createElement('td')
-                        const td_2 = document.createElement('td')
-                        const td_3 = document.createElement('td')
-                        const td_4 = document.createElement('td')
-                        const td_5 = document.createElement('td')
-
-                        const badge = $("<span></span>", {
-                            "class": "badge text-bg-success"
-                        }).text(element.status).appendTo(td_4)
-                        const btn = $('<button></button>', {
-                            "class": ["btn btn-primary"],
-                            "type": "button",
-                            "data-bs-toggle": "modal",
-                            "data-bs-target": "#" + element.no_transaksi,
-                            "disabled": element.status === "Menunggu" || element.status === "Lunas" ? true : false
-                        }).text("Verifikasi").appendTo(td_5)
-
-                        td_1.innerHTML = i
-                        td_2.innerHTML = element.username
-                        td_3.innerHTML = element.tgl
-
-                        tbody.appendChild(tr)
-                        tr.appendChild(td_1)
-                        tr.appendChild(td_2)
-                        tr.appendChild(td_3)
-                        tr.appendChild(td_4)
-                        tr.appendChild(td_5)
-                        i++
-                    })
+                    }).text("No Have Data").appendTo(tr)
                 }
+
+                dataPembayaran.forEach(element => {
+                    const tr = document.createElement('tr')
+                    const td_1 = document.createElement('td')
+                    const td_2 = document.createElement('td')
+                    const td_3 = document.createElement('td')
+                    const td_4 = document.createElement('td')
+                    const td_5 = document.createElement('td')
+
+                    const badge = $("<span></span>", {
+                        "class": "badge text-bg-success"
+                    }).text(element.status).appendTo(td_4)
+                    const btn = $('<button></button>', {
+                        "class": ["btn btn-primary"],
+                        "type": "button",
+                        "data-bs-toggle": "modal",
+                        "data-bs-target": "#" + element.no_transaksi,
+                        "disabled": element.status === "Menunggu" || element.status === "Lunas" ? true : false
+                    }).text("Verifikasi").appendTo(td_5)
+
+                    td_1.innerHTML = i
+                    td_2.innerHTML = element.username
+                    td_3.innerHTML = element.tgl
+
+                    tbody.appendChild(tr)
+                    tr.appendChild(td_1)
+                    tr.appendChild(td_2)
+                    tr.appendChild(td_3)
+                    tr.appendChild(td_4)
+                    tr.appendChild(td_5)
+                    i++
+                })
             }
 
         })

@@ -41,7 +41,7 @@ $routes->post('admin/getDataPembayaranAjax', 'admin::getDataPembayaranAjax');
 
 // Home Routes
 $routes->get('/', 'Home::index');
-$routes->get('/Home', 'Home::index');
+$routes->get('Home', 'Home::index');
 $routes->get('{locale}/Home', 'Home::index');
 $routes->get('Home/Logout', 'Home::Logout');
 $routes->post('Home/insertDataPasien', 'Home::insertDataPasien');
@@ -65,8 +65,8 @@ $routes->post('pasien/kirimMasukan', 'pasien::kirimMasukan');
 
 // admin
 
-$routes->get('{locale}/admin', 'admin::index');
-$routes->get('admin/', 'admin::index');
+// $routes->get('{locale}/admin', 'admin::index');
+$routes->get('admin', 'admin::index');
 $routes->get('admin/daftarPembayaran', 'admin::daftarPembayaran');
 $routes->get('admin/Laporan', 'admin::Laporan');
 $routes->get('admin/Masukan', 'admin::Masukan');

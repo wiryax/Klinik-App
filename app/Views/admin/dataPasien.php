@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col">
             <div class="mb-5 text-center">
-                <h2>List Pasien</h2>
+                <h2><?= lang($lang . "List-Patient") ?></h2>
                 <hr>
                 <?php if (!empty($validation['kd_obat'])) : ?>
                     <div class="mb-3">
@@ -40,11 +40,11 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Kode Pemeriksaan</th>
-                        <th>Nama Pasien</th>
-                        <th>Tanggal Pemeriksaan</th>
+                        <th><?= lang($lang . "Examination-Number") ?></th>
+                        <th><?= lang($lang . "Name") ?></th>
+                        <th><?= lang($lang . "Date") ?></th>
                         <!-- <th>Status Pembayaran</th> -->
-                        <th>Pemeriksaan</th>
+                        <th><?= lang($lang . "Examination") ?></th>
                     </tr>
                 </thead>
                 <tbody id="data">
@@ -131,7 +131,7 @@
                     "type": "button",
                     "data-bs-toggle": "modal",
                     "data-bs-target": "#" + element.kd_pemeriksaan,
-                    "disabled": element.status === "menunggu" ? false : true
+                    "disabled": element.status === "Lunas" || element.status === "Menunggu Verifikasi" ? true : false
                 }).text("Input Hasil Pemeriksaan").appendTo(td_5)
 
                 td_1.innerHTML = i
@@ -162,15 +162,12 @@
             success: function(data) {
                 let j = 1
                 $('#data').empty()
-                // console.log(dataPasien)
                 const dataPasien = JSON.parse(data)
                 if (dataPasien.length <= 0) {
-                    const tr = document.createElement('tr')
-                    const td = document.createElement('td')
-                    td.setAttribute('colspan', "5")
-                    td.innerHTML = "No Have Data"
-                    tbody.appendChild(tr)
-                    tr.appendChild(td)
+                    const tr = $('<tr></tr>').appendTo(tbody)
+                    const td = $('<td></td>', {
+                        "colspan": 5
+                    }).text("No Have Data").appendTo(tr)
                 }
                 dataPasien.forEach(element => {
                     const tr = document.createElement('tr')
@@ -185,7 +182,7 @@
                         "type": "button",
                         "data-bs-toggle": "modal",
                         "data-bs-target": "#" + element.kd_pemeriksaan,
-                        "disabled": element.status === "Menunggu" ? false : true
+                        "disabled": element.status === "Lunas" || element.status === "Menunggu Verifikasi" ? true : false
                     }).text("Input Hasil Pemeriksaan").appendTo(td_5)
 
                     tbody.appendChild(tr)

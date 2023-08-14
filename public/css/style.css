@@ -63,10 +63,6 @@ html {
   font-size: 20px;
 }
 
-/* .sidebar li:hover {
-  background: white;
-} */
-
 .menu-bar .menu .menu-links .nav-link a:hover {
   background: white;
   transition: 0.3s;
@@ -96,3 +92,9 @@ html {
     color: rgb(213, 153, 0);
   }
 }
+
+/* @media (max-width: 768px) {
+  h3 {
+    font-size: 1rem;
+  }
+} */

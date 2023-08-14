@@ -8,5 +8,6 @@ return [
     "Address-Plchldr" => "Masukan Alamat Sesuai KTP",
     "Phone-Num" => "Nomer Telphone",
     "Phone-Plchldr" => "Masukan Nomer Telphone Yang Valid",
-    "Regis" => "Daftar"
+    "Regis" => "Daftar",
+    "Select-Language" => "Pilih Bahasa"
 ];

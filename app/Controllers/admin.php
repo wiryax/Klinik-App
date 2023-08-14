@@ -11,18 +11,21 @@ class admin extends BaseController
     protected $AdminModel;
     protected $PasienModel;
     protected $path;
+    protected $lang;
     public function __construct()
     {
         $this->AdminModel   = new AdminModel();
         $this->PasienModel  = new PasienModel();
+        $this->lang         = "Admin/Admin.";
     }
     public function index()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
-        $data = ['dataPasien' => $this->AdminModel->getListPasien(''), 'dataObat' => $this->AdminModel->db->table('obat')->select('kd_obat, nama_obat')->get()->getResult(), 'validation' => validation_errors()];
+        $data = [
+            'lang'          => $this->lang,
+            'dataPasien'    => $this->AdminModel->getListPasien(''),
+            'dataObat'      => $this->AdminModel->db->table('obat')->select('kd_obat, nama_obat')->get()->getResult(),
+            'validation'    => validation_errors()
+        ];
         return view('admin/dataPasien', $data);
     }
     public function getDataAjax()
@@ -54,22 +57,15 @@ class admin extends BaseController
     }
     public function daftarPembayaran()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
         $data = [
-            'dataPembayaran' => $this->AdminModel->dataPembayaran('')
+            'dataPembayaran'    => $this->AdminModel->dataPembayaran(''),
+            'lang'              => $this->lang
         ];
 
         return view('admin/dataPembayaran', $data);
     }
     public function saveDiagnosis()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
 
         $kd_pemeriksaan = $this->request->getVar('kd_pemeriksaan');
         $dataObat       = $this->request->getVar('kd_obat');
@@ -85,7 +81,7 @@ class admin extends BaseController
                 'errors' => ['required' => 'Data Hasil Periksa Belum Diinput']
             ]
         ])) {
-            return redirect()->to('admin/')->withInput();
+            return redirect()->to('admin/listData')->withInput();
         }
 
         $this->AdminModel->dataDiagnosa($hasil_periksa, $kd_pasien, $kd_pemeriksaan, $dataObat);
@@ -96,10 +92,6 @@ class admin extends BaseController
     }
     public function verifPembayaran()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
         $no_transaksi = $this->request->getVar('no_transaksi');
 
         $this->AdminModel->db->table('pembayaran')->where('no_transaksi', $no_transaksi)->set(['status' => 'Lunas'])->update();
@@ -116,25 +108,22 @@ class admin extends BaseController
     }
     public function Masukan()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
-        $data = ['dataMasukan' => $this->AdminModel->db->table('masukan')->select('*')->get()->getResult()];
+        $data = [
+            'dataMasukan'   => $this->AdminModel->db->table('masukan')->select('*')->get()->getResult(),
+            'lang'          => $this->lang
+        ];
         return view('admin/Masukan', $data);
     }
     public function Laporan()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
         $data = [
-            'lap_pasien' => $this->PasienModel->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult(),
+            'lap_pasien'    => $this->PasienModel->db->table('pasien')->select('pasien.username, pasien.alamat, pasien.no_tlp, informasi_pemeriksaan.tgl_periksa, resep_obat.kd_resep')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('resep_obat', 'resep_obat.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->get()->getResult(),
 
             'lap_pembayaran' => $this->PasienModel->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, pembayaran.tgl, pembayaran.biaya, pembayaran.status')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->orWhere('pembayaran.status', 'Menunggu Verifikasi')->get()->getResult(),
 
-            'lap_diagnosa' => $this->PasienModel->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult()
+            'lap_diagnosa'  => $this->PasienModel->db->table('pasien')->select('pasien.username, informasi_pemeriksaan.tgl_periksa, informasi_pemeriksaan.hasil_periksa')->join('informasi_pemeriksaan', 'informasi_pemeriksaan.kd_pasien = pasien.kd_pasien')->join('pembayaran', 'pembayaran.kd_pemeriksaan = informasi_pemeriksaan.kd_pemeriksaan')->where('pembayaran.status', 'Lunas')->get()->getResult(),
+
+            'lang'           => $this->lang
         ];
 
         return view('admin/Laporan', $data);

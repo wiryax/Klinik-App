@@ -12,6 +12,34 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg bg-primary p-2">
+        <div class="container-fluid d-flex justify-content-end">
+            <span class="me-1">
+                <a href="#offcanvas" class="border border-0 text-light" data-bs-toggle="offcanvas"><?= lang($lang . "Select-Language") ?></a>
+            </span>
+            <button type="button" class="btn btn-primary position-relative">
+                <i class="bi bi-bell-fill"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    1
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
+        </div>
+    </nav>
+    <!-- Off Canvas -->
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel"><?= lang($lang . "Select-Language") ?></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul>
+                <li><a href="<?= base_url('language/id') ?>">Indonesia</a></li>
+                <li><a href="<?= base_url('language/en') ?>">English</a></li>
+            </ul>
+        </div>
+    </div>
 
     <nav class="sidebar position-fixed top-0 left-0 bg-primary text-white">
         <header>
@@ -20,36 +48,37 @@
                     <i class="bi bi-person-circle"></i>
                 </span>
                 <div class="text d-flex flex-column">
-                    <span class="text">Selamat Datang</span>
+                    <span class="text"><?= lang($lang . "Welcome") ?></span>
                     <span><?= session()->get('admin') ?></span>
                 </div>
             </div>
         </header>
+        <hr>
         <div class="menu-bar d-flex flex-column justify-content-between">
             <div class="menu">
                 <ul class="menu-links">
                     <li class="nav-link d-flex align-items-center">
                         <a href="/admin/" class="text-decoration-none d-flex align-items-center text-white">
                             <i class="bi bi-person-lines-fill icon d-flex align-items-center"></i>
-                            <span class="text nav-text">List Data Pasien</span>
+                            <span class="text nav-text"><?= lang($lang . "List-Patient") ?></span>
                         </a>
                     </li>
                     <li class="nav-link d-flex align-items-center">
                         <a href="/admin/daftarPembayaran" class="text-decoration-none d-flex align-items-center text-white">
                             <i class="bi bi-person-check icon d-flex align-items-center"></i>
-                            <span class="text nav-text">Verifikasi Pembayaran</span>
+                            <span class="text nav-text"><?= lang($lang . "Payment-Verif") ?></span>
                         </a>
                     </li>
                     <li class="nav-link d-flex align-items-center">
                         <a href="/admin/Laporan" class="text-decoration-none d-flex align-items-center text-white">
                             <i class="bi bi-printer-fill icon d-flex align-items-center"></i>
-                            <span class="text nav-text">Cetak Laporan</span>
+                            <span class="text nav-text"><?= lang($lang . "Report") ?></span>
                         </a>
                     </li>
                     <li class="nav-link d-flex align-items-center">
                         <a href="/admin/Masukan" class="text-decoration-none d-flex align-items-center text-white">
                             <i class="bi bi-send-exclamation-fill icon d-flex align-items-center"></i>
-                            <span class="text nav-text">Masukan</span>
+                            <span class="text nav-text"><?= lang($lang . "Feedback") ?></span>
                         </a>
                     </li>
                 </ul>
@@ -59,7 +88,7 @@
                     <li class="nav-link nav-link d-flex align-items-center list-group-item-action ">
                         <a href="/Home/Logout" class="text-decoration-none d-flex align-items-center text-white">
                             <i class="bi bi-box-arrow-in-left icon d-flex align-items-center"></i>
-                            <span class="text nav-text">Log Out</span>
+                            <span class="text nav-text"><?= lang($lang . "Logout") ?></span>
                         </a>
                     </li>
                 </ul>

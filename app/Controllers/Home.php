@@ -32,11 +32,11 @@ class Home extends BaseController
             session()->setFlashdata('classInvalid', 'alert alert-danger');
             return redirect()->to('Home/');
         } elseif ($data[0]['role'] === '1') {
-            $this->session->set(['admin' => $username, 'status' => true]);
-            return redirect()->to('/admin');
+            $this->session->set(['admin' => $username, 'status' => true, 'role' => '1']);
+            return redirect()->to('admin');
         } elseif ($data[0]['role'] === '2') {
-            $this->session->set(['pasien' => $username, 'status' => true]);
-            return redirect()->to('/pasien');
+            $this->session->set(['pasien' => $username, 'status' => true, 'role' => '2']);
+            return redirect()->to('pasien');
         }
     }
     public function Registrasi()

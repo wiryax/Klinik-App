@@ -8,5 +8,6 @@ return [
     "Address-Plchldr" => "Enter Valid Address in Your Personal Data",
     "Phone-Num" => "Phone Number",
     "Phone-Plchldr" => "Enter Valid Phone Number",
-    "Regis" => "Registration"
+    "Regis" => "Registration",
+    "Select-Language" => "Select Language"
 ];

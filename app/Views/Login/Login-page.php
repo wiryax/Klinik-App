@@ -1,14 +1,14 @@
 <?php $this->extend('/template-log/template') ?>
 <?php $this->section('Login-page') ?>
 
-<div class="container-xxl position-absolute top-50 start-50 translate-middle">
+<div class="container container-md container-sm position-absolute top-50 start-50 translate-middle pt-5 pb-5">
     <div class="row align-items-center">
-        <div class="col">
+        <div class="col-lg-6 col-md-6 col-sm-12">
             <div class="mb-5">
-                <h3><strong><?= lang($lang . "Welcome-Header") ?></strong></h3>
+                <h6 class="display-6 fw-semibold"><?= lang($lang . "Welcome-Header") ?></h6>
             </div>
-            <div class="mb-3 text-secondary">
-                <h5><?= lang($lang . "Login-Header") ?></h5>
+            <div class="mb-3 text-secondary display-6">
+                <h6 class="fs-5"><?= lang($lang . "Login-Header") ?></h6>
             </div>
             <?php if (session()->getFlashdata('massage')) : ?>
                 <div class="mb-5">
@@ -25,34 +25,36 @@
                 </div>
             <?php endif; ?>
             <form action="<?= base_url() ?>Home/Login" method="post">
-                <div class="mb-3">
+                <div class="mb-3 input-group input-group-sm input-group-md">
                     <input type="text" class="form-control" name="username" placeholder="Username...">
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 input-group input-group-sm input-group-md">
                     <input type="password" class="form-control" name="password" placeholder="Password...">
                 </div>
-                <div class="mb-5">
+                <div class="mb-1">
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-check-inline form-check">
+                        <div class="col col-md-6 col-sm-6">
+                            <div class="form-check-inline form-check input-group-sm input-group-md">
                                 <input type="checkbox" name="R-me" class="form-check-input">
-                                <label for="R-me" class="form-check-label"><?= lang($lang . "Cookie-Set") ?></label>
+                                <label for="R-me" class="form-check-label">
+                                    <h6 class="fw-normal"><?= lang($lang . "Cookie-Set") ?></h6>
+                                </label>
                             </div>
                         </div>
-                        <div class="col-md-4 offset-md-4 text-end">
+                        <div class="col col-md-6 col-sm-6 text-end">
                             <div class="form-check-inline form-check">
                                 <a href="<?= base_url() ?>Home/Registrasi"><?= lang($lang . "Sign-Up") ?></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="mb-3 d-grid gap-2 col-6 mx-auto">
-                    <button type="submit" class="btn btn-primary"><?= lang($lang . "Log-in") ?></button>
+                <div class="mb-3 col-4 col-sm-4 col-md-4 mx-auto text-center">
+                    <button type="submit" class="btn btn-primary btn-md"><?= lang($lang . "Log-in") ?></button>
                 </div>
             </form>
         </div>
 
-        <div class="col background">
+        <div class="col-lg-6 col-md-6 col-sm-12 background">
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">

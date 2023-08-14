@@ -10,30 +10,20 @@ class pasien extends BaseController
 {
     public function index()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
 
         return view('pasien/home');
     }
     public function Antrian()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
-        $model = new PasienModel();
 
+        $model = new PasienModel();
         $data = ['dataPemeriksaan' => $model->getJadwalPemeriksaan(session()->get('pasien'))->get()->getResult()];
         return view('pasien/antrian', $data);
     }
     public function Resep()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
 
         $model = new PasienModel();
 
@@ -44,10 +34,7 @@ class pasien extends BaseController
     }
     public function Pembayaran()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
 
         $model = new PasienModel();
 
@@ -59,10 +46,7 @@ class pasien extends BaseController
 
     public function saveAntrian()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
         $model = new PasienModel();
 
         $kd_pasien = session()->get('pasien');
@@ -85,10 +69,7 @@ class pasien extends BaseController
 
     public function savePembayaran()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
         if (!$this->validate([
             'file' => [
                 'rules' => 'uploaded[file]|max_size[file,1024]|is_image[file]|mime_in[file,image/jpg,image/jpeg,image/png]',
@@ -126,18 +107,12 @@ class pasien extends BaseController
     }
     public function masukan()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
         return view('pasien/Masukan');
     }
     public function detilResep($kd_pemeriksaan, $kd_resep, $nama_pasien)
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
         $model = new PasienModel();
         $data = ['nama_pasien' => $nama_pasien, 'dataPeriksa' => $model->db->table('informasi_pemeriksaan')->select('kd_pemeriksaan, hasil_periksa')->where('kd_pemeriksaan', $kd_pemeriksaan)->get()->getResult(), 'dataObat' => $model->dataObat($kd_resep)];
 
@@ -146,10 +121,7 @@ class pasien extends BaseController
 
     public function kirimMasukan()
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
 
         $model = new PasienModel();
 
@@ -167,10 +139,7 @@ class pasien extends BaseController
     }
     public function delete($kd_pemeriksaan = '')
     {
-        if (session()->has('status') == false) {
-            return redirect()->to('/');
-            die;
-        }
+
         $model = new PasienModel();
         // dd($model->deleteAntrian($kd_pemeriksaan));
         if ($model->deleteAntrian($kd_pemeriksaan) == false) {

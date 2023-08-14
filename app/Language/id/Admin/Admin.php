@@ -1,0 +1,27 @@
+<?php
+return [
+    "Welcome"               => "Selamat Datang",
+    "List-Patient"          => "Daftar Pasien",
+    "Payment-Verif"         => "Verifikasi Pembayaran",
+    "Report"                => "Cetak Laporan",
+    "Feedback"              => "Kirim Masukan",
+    "Logout"                => "Keluar",
+    "Examination-Number"    => "Nomer Antrian",
+    "Name"                  => "Nama Pasien",
+    "Date"                  => "Tanggal Pemeriksaan",
+    "Examination"           => "Pemeriksaan",
+    "Diagnosys"             => "Hasil Pemeriksaan",
+    "Recipe-Number"         => "Kode Resep",
+    "Phone"                 => "Nomer Telpon",
+    "Addres"                => "Alamat Pasien",
+    "Select-Language"       => "Pilih Bahasa",
+    "List-Patient"          => "List Pasien",
+    "Payment-List"          => "List Pembayaran",
+    "Payment-Date"          => "Tanggal Pembayaran",
+    "Payment-Status"        => "Status Pembayaran",
+    "Report"                => "Laporan",
+    "Patien-Report"         => "Laporan Data Pasien",
+    "Print"                 => "Cetak",
+    "Transaction-Number"    => "Nomer Transaksi",
+    "Cost"                  => "Biaya"
+];

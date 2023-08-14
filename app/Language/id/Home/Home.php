@@ -5,5 +5,6 @@ return [
     "Login-Header" => "Silahkan masukan username dan password untuk menggunakan sistem",
     "Cookie-Set" => "Ingat Saya",
     "Sign-Up" => "Registrasi",
-    "Log-in" => "Log In"
+    "Log-in" => "Log In",
+    "Select-Language" => "Pilih Bahasa"
 ];

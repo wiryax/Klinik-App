@@ -8,20 +8,20 @@
     <div class="row mb-3">
         <div class="col">
             <div class="mb-3">
-                <h4 class="">Laporan Data Pasien</h4>
+                <h4 class=""><?= lang($lang . "Report") ?></h4>
             </div>
             <div class="mb-3">
-                <a href="/admin/cetakDataPasien" class="btn btn-primary" style="width: 100px;"><i class="bi bi-printer-fill"></i> Cetak</a>
+                <a href="/admin/cetakDataPasien" class="btn btn-primary" style="width: 100px;"><i class="bi bi-printer-fill"></i><?= lang($lang . "Print") ?></a>
             </div>
             <table class="table text-center">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Pasien</th>
-                        <th>Alamat</th>
-                        <th>Nomer Telphone</th>
-                        <th>Kode Resep</th>
-                        <th>Tanggal Pemeriksaan</th>
+                        <th><?= lang($lang . "Name") ?></th>
+                        <th><?= lang($lang . "Addres") ?></th>
+                        <th><?= lang($lang . "Phone") ?></th>
+                        <th><?= lang($lang . "Recipe-Number") ?></th>
+                        <th><?= lang($lang . "Date") ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,20 +48,20 @@
     <div class="row mb-3">
         <div class="col">
             <div class="mb-3">
-                <h4 class="">Laporan Pembayaran</h4>
+                <h4 class=""><?= lang($lang . "Report") ?></h4>
             </div>
             <div class="mb-3">
-                <a href="/admin/cetakPembayaran" class="btn btn-primary" style="width: 100px;"><i class="bi bi-printer-fill"></i> Cetak</a>
+                <a href="/admin/cetakPembayaran" class="btn btn-primary" style="width: 100px;"><i class="bi bi-printer-fill"></i><?= lang($lang . "Print") ?></a>
             </div>
             <table class="table text-center">
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kode Transaksi</th>
-                        <th>Kode Pemeriksaan</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Biaya</th>
+                        <th><?= lang($lang . "Transaction-Number") ?></th>
+                        <th><?= lang($lang . "Date") ?></th>
+                        <th><?= lang($lang . "Payment-Date") ?></th>
+                        <th><?= lang($lang . "Cost") ?></th>
+                        <th><?= lang($lang . "Payment-Status") ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,7 +88,7 @@
     <div class="row mb-3">
         <div class="col">
             <div class="mb-3">
-                <h4 class="">Laporan Data Diagnosa</h4>
+                <h4 class=""><?= lang($lang . "Report") . lang($lang . "Diagnosys") ?></h4>
             </div>
             <div class="mb-3">
                 <a href="/admin/cetakDataDiagnosa" class="btn btn-primary" style="width: 100px;"><i class="bi bi-printer-fill"></i> Cetak</a>
@@ -97,9 +97,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama Pasien</th>
-                        <th>Tanggal Periksa</th>
-                        <th>Hasil Diagnosa</th>
+                        <th><?= lang($lang . "Name") ?></th>
+                        <th><?= lang($lang . "Date") ?></th>
+                        <th><?= lang($lang . "Diagnosys") ?></th>
                     </tr>
                 </thead>
                 <tbody>

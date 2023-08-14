@@ -11,17 +11,16 @@
 
 <body>
     <nav class="navbar navbar-expand-lg bg-primary">
-        <div class="container-fluid d-flex justify-content-end">
+        <div class="container-fluid d-flex flex-nowrap justify-content-end">
             <span class="me-1">
-                <a href="#offcanvas" class="btn btn-primary border" data-bs-toggle="offcanvas">Select Language</a>
+                <a href="#offcanvas" class="btn btn-primary btn-sm border border-0 fs-6" data-bs-toggle="offcanvas"><?= lang($lang . "Select-Language") ?></a>
             </span>
-            <a href="" class="navbar-brand text-light">Klinik Dr. Wulan</a>
         </div>
     </nav>
     <!-- offcanvas content -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+            <h5 class="offcanvas-title" id="offcanvasRightLabel"><?= lang($lang . "Select-Language") ?></h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
