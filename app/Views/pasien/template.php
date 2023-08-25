@@ -26,7 +26,6 @@
                 </button>
             </div>
         </nav>
-
         <nav class="sidebar position-fixed top-0 left-0 bg-primary text-white">
             <header>
                 <div class="image-text d-flex align-items-center">
@@ -82,13 +81,11 @@
                 </div>
             </div>
         </nav>
-
         <div class="content pt-1">
             <?php $this->renderSection('content'); ?>
         </div>
     </div>
     <!-- Off Canvas -->
-
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasRightLabel">###</h5>
