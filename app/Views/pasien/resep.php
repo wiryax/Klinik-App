@@ -1,7 +1,7 @@
 <?php $this->extend('pasien/template') ?>
 <?php $this->section('content') ?>
 
-<div class="container p-5">
+<div class="container">
     <h2 class="text-center">
         Hasil Pemeriksaan
     </h2>

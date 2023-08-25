@@ -1,7 +1,7 @@
 <?php $this->extend('admin/template') ?>
 <?php $this->section('content') ?>
 
-<div class="container p-5">
+<div class="container">
     <div class="row">
         <div class="col">
             <div class="mb-3">
@@ -30,19 +30,21 @@
                 <span class="input-group-text bg-transparent border-end-0" id="basic-addon1"><i class="bi bi-search"></i></span>
                 <input type="text" class="form-control border-start-0" placeholder="search" aria-label="search" id="searchDataPembayaran">
             </div>
-            <table class="table text-center">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th><?= lang($lang . "Name") ?></th>
-                        <th><?= lang($lang . "Payment-Date") ?></th>
-                        <th><?= lang($lang . "Payment-Status") ?></th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="data">
-                </tbody>
-            </table>
+            <div class="table-responsive-sm">
+                <table class="table text-center align-middle">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th><?= lang($lang . "Name") ?></th>
+                            <th><?= lang($lang . "Payment-Date") ?></th>
+                            <th><?= lang($lang . "Payment-Status") ?></th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -50,7 +52,7 @@
 <!-- Modal Box -->
 
 <?php foreach ($dataPembayaran as $row) :  ?>
-    <div class="modal fade" id="<?= $row->no_transaksi ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal modal-md fade" id="<?= $row->no_transaksi ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -69,7 +71,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="no_transaksi" class="col-form-label">Bukti Transfer</label>
-                            <img src="/img/bukti_pembayaran/<?= $row->file ?>" class="img-thumbnail">
+                            <img src="/img/bukti_pembayaran/<?= $row->file ?>" class="img-fluid">
                             <input type="text" class="form-control" name="no_transaksi" value="<?= $row->no_transaksi ?>" hidden>
                         </div>
                         <div class="modal-footer">

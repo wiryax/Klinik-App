@@ -1,6 +1,6 @@
 <?php $this->extend('pasien/template') ?>
 <?php $this->section('content') ?>
-<div class="container p-5">
+<div class="container">
     <div class="row">
         <div class="col">
             <h2 class="text-center mb-5">

@@ -1,7 +1,7 @@
 <?php $this->extend('pasien/template') ?>
 <?php $this->section('content') ?>
 
-<div class="container p-5" style="width: 50%;">
+<div class="container" style="width: 50%;">
     <div class="mt-5 mb-3 text-center">
         <h2>Buat Antrian Baru</h2>
     </div>
