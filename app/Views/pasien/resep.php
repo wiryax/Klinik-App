@@ -3,7 +3,7 @@
 
 <div class="container">
     <h2 class="text-center">
-        Hasil Pemeriksaan
+        <?= lang($lang . "Examination-Result") ?>
     </h2>
     <div class="row">
         <div class="d-flex justify-content-evenly flex-wrap">
@@ -11,18 +11,18 @@
                 <div class="card mt-2 mb-2" style="min-width: 300px; max-width: 400px;">
                     <div class="card-body">
                         <div class="card-title">
-                            <h5>Kode Pemeriksaan : <?= $row->kd_pemeriksaan ?></h5>
+                            <h5><?= lang($lang . "Examination-Number") ?> : <?= $row->kd_pemeriksaan ?></h5>
                         </div>
                         <div class="card-subtitle mb-2 text-body-secondary">
-                            <h6>Nama Pasien : <?= $row->username ?></h6>
+                            <h6><?= lang($lang . "Name") ?> : <?= $row->username ?></h6>
                         </div>
                         <div class="card-text mb-1">
-                            <p class="fw-bold">Hasil Diagnosa :</p>
+                            <p class="fw-bold"><?= lang($lang . "Diagnosys") ?> :</p>
                             <p class="text-truncate"><?= $row->hasil_periksa ?></p>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="/pasien/detilResep/<?= $row->kd_pemeriksaan ?>/<?= $row->kd_resep ?>/<?= $row->username ?>" class="card-link">Detil Resep</a>
+                        <a href="/pasien/detilResep/<?= $row->kd_pemeriksaan ?>/<?= $row->kd_resep ?>/<?= $row->username ?>" class="card-link"><?= lang($lang . "Recipe-Detil") ?></a>
                     </div>
                 </div>
             <?php endforeach; ?>

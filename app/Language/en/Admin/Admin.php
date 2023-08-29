@@ -23,6 +23,6 @@ return [
     "Patien-Report"         => "Patient Data Report",
     "Print"                 => "Print",
     "Transaction-Number"    => "Transaction Number",
-    "Cost"                  => "Cost"
+    "Cost"                  => "Cost",
 
 ];

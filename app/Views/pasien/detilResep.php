@@ -1,33 +1,38 @@
 <?php $this->extend('pasien/template') ?>
 <?php $this->section('content') ?>
 
-<div class="container position-absolute top-50 start-50 translate-middle" style="width: 40%;">
+<div class="container">
     <h2 class="text-center">
-        Detil Resep
+        <?= lang($lang . "Recipe-Detil") ?>
     </h2>
     <div class="row">
         <div class="col">
-            <div class="card">
-                <div class="card-header">
-                    Kode Pemeriksaan : <?= $dataPeriksa[0]->kd_pemeriksaan ?>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p><span class="fw-bold">Nama Pasien : </span><?= $nama_pasien ?></p>
-                        <p class="fw-bold">Keterangan :</p>
-                        <p><?= $dataPeriksa[0]->hasil_periksa ?></p>
-                        <p class="fw-bold">Daftar Obat :</p>
-                        <ul class="list-group list-group-horizontal">
-                            <?php foreach ($dataObat as $row) :  ?>
-                                <li class="list-group-item"><?= $row->nama_obat ?></li>
+            <div class="table-responsive-sm">
+                <table class="table table-hover align-middle">
+                    <tr class="table-secondary">
+                        <th><?= lang($lang . "Examination-Number") ?></th>
+                        <td><?= $dataPeriksa[0]->kd_pemeriksaan ?></td>
+                    </tr>
+                    <tr class="table-light">
+                        <th><?= lang($lang . "Name") ?></th>
+                        <td><?= $nama_pasien ?></td>
+                    </tr>
+                    <tr class="table-secondary">
+                        <th>Obat Yang Harus Dikonsumsi</th>
+                        <td><?php foreach ($dataObat as $row) :  ?>
+                                <?= $row->nama_obat ?>
                             <?php endforeach; ?>
-                        </ul>
-                    </div>
-                </div>
-
+                        </td>
+                    </tr>
+                    <tr class="table-light">
+                        <th><?= lang($lang . "Examination-Result") ?></th>
+                        <td>
+                            <?= $dataPeriksa[0]->hasil_periksa ?>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 </div>
-
 <?php $this->endSection() ?>

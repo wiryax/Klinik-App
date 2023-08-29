@@ -3,7 +3,7 @@
 
 <div class="container" style="width: 50%;">
     <div class="mt-5 mb-3 text-center">
-        <h2>Buat Antrian Baru</h2>
+        <h2><?= lang($lang . "Booking") ?></h2>
     </div>
     <?php if (session()->getFlashdata('statusBooking')) : ?>
         <div class="alert alert-success" role="alert">
@@ -16,11 +16,11 @@
         <div class="col">
             <form action="/pasien/saveAntrian">
                 <div class="mb-3">
-                    <label for="tgl_periksa" class="form-label">Atur Jadwal Pemeriksaan</label>
+                    <label for="tgl_periksa" class="form-label"><?= lang($lang . "Set-Date") ?> </label>
                     <input type="date" name="tgl_periksa" id="" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Buat Jadwal</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
@@ -43,35 +43,33 @@
                     </div>
                 <?php endif; ?>
 
-                <h2>Daftar Jadwal Pemeriksaan Anda</h2>
+                <h2><?= lang($lang . "Examination-List") ?></h2>
             </div>
-            <div class="mb-3">
-                <table class="table text-center">
+            <div class="mb-3 table-responsive-sm">
+                <table class="table text-center text-center align-middle">
                     <thead class="table-primary">
                         <tr class="">
                             <th>No.</th>
-                            <th>Nama</th>
-                            <th>Tanggal</th>
-                            <th>Hasil</th>
+                            <th><?= lang($lang . "Name") ?></th>
+                            <th><?= lang($lang . "Date") ?></th>
+                            <th><?= lang($lang . "Diagnosys") ?></th>
                             <th>Action</th>
-                            <!-- <th>Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        // dd($dataPemeriksaan);
                         $i = 1;
                         foreach ($dataPemeriksaan as $row) : ?>
                             <tr>
-                                <td><?= $i++ ?></td>
-                                <td><?= session()->get('pasien') ?></td>
-                                <td><?= $row->tgl_periksa ?></td>
-                                <td>
+                                <td class="vertical-align-middle"><?= $i++ ?></td>
+                                <td class="vertical-align-middle"><?= session()->get('pasien') ?></td>
+                                <td class="vertical-align-middle"><?= $row->tgl_periksa ?></td>
+                                <td class="vertical-align-middle">
                                     <span class="d-inline-block text-truncate" style="max-width: 300px;">
                                         <p><?= $row->hasil_periksa ?></p>
                                     </span>
                                 </td>
-                                <td><button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#<?= $row->kd_pemeriksaan ?>"><i class="bi bi-trash-fill"></i> Hapus</button></td>
+                                <td class="vertical-align-middle"><button class="btn btn-sm btn-block btn-danger d-1" data-bs-toggle="modal" data-bs-target="#<?= $row->kd_pemeriksaan ?>"><i class="bi bi-trash-fill"></i> Hapus</button></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -96,10 +94,6 @@ if (!empty($dataPemeriksaan)) :
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                         <a href="/pasien/delete/<?= $row->kd_pemeriksaan ?>" class="btn btn-danger">Hapus Antrian</a>
-                        <!-- <form action="/pasien/delete" method="post">
-                            <input type="hidden" name="kd_pemeriksaan" value="">
-                            <button type="submit" class="btn btn-danger">Hapus Antrian</button>
-                        </form> -->
                     </div>
                 </div>
             </div>
@@ -108,6 +102,4 @@ if (!empty($dataPemeriksaan)) :
     endforeach;
 endif;
 ?>
-
-
 <?php $this->endSection() ?>

@@ -33,7 +33,7 @@
                         <i class="bi bi-person-circle"></i>
                     </span>
                     <div class="text d-flex flex-column">
-                        <span class="text h-6">Selamat Datang</span>
+                        <span class="text h-6"><?= lang($lang . "Welcome") ?></span>
                         <span class="h3 fw-bold"><?= session()->get('pasien') ?></span>
                     </div>
                 </div>
@@ -46,19 +46,19 @@
                         <li class="nav-link d-flex align-items-center list-group-item-action">
                             <a href="/pasien/" class="text-decoration-none d-flex align-items-center text-white p-1">
                                 <i class="bi bi-person-lines-fill icon d-flex align-items-center"></i>
-                                <span class="text nav-text">Ambil Nomer Antrian</span>
+                                <span class="text nav-text"><?= lang($lang . "Booking-Menu") ?></span>
                             </a>
                         </li>
                         <li class="nav-link d-flex align-items-center list-group-item-action">
                             <a href="/pasien/Resep" class="text-decoration-none d-flex align-items-center text-white p-1">
                                 <i class="bi bi-input-cursor icon d-flex align-items-center "></i>
-                                <span class="text nav-text">Hasil Pemeriksaan</span>
+                                <span class="text nav-text"><?= lang($lang . "Examination-Result") ?></span>
                             </a>
                         </li>
                         <li class="nav-link d-flex align-items-center list-group-item-action">
                             <a href="/pasien/Pembayaran" class="text-decoration-none d-flex align-items-center text-white p-1">
                                 <i class="bi bi-person-check icon d-flex align-items-center"></i>
-                                <span class="text nav-text">Pembayaran</span>
+                                <span class="text nav-text"><?= lang($lang . "Payment") ?></span>
                             </a>
                         </li>
                     </ul>
@@ -68,20 +68,20 @@
                         <li class="nav-link nav-link d-flex align-items-center list-group-item-action">
                             <a href="/pasien/masukan" class="text-decoration-none d-flex align-items-center text-white p-1">
                                 <i class="bi bi-envelope-exclamation icon d-flex align-items-center"></i>
-                                <span class="text nav-text">Saran & Kritik</span>
+                                <span class="text nav-text"><?= lang($lang . "Feedback") ?></span>
                             </a>
                         </li>
                         <li class="nav-link nav-link d-flex align-items-center list-group-item-action">
                             <a href="/Home/Logout" class="text-decoration-none d-flex align-items-center text-white p-1">
                                 <i class="bi bi-box-arrow-in-left icon d-flex align-items-center"></i>
-                                <span class="text nav-text">Log Out</span>
+                                <span class="text nav-text"><?= lang($lang . "Logout") ?></span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="content pt-1">
+        <div class="content p-2">
             <?php $this->renderSection('content'); ?>
         </div>
     </div>

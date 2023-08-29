@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col">
             <h2 class="text-center mb-5">
-                Transaksi
+                <?= lang($lang . "Transaction") ?>
             </h2>
             <?php if (session()->getFlashdata('invalidPembayaran')) : ?>
                 <div class="mb-5">
@@ -24,8 +24,8 @@
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
+                        <th><?= lang($lang . "Payment-Date") ?></th>
+                        <th><?= lang($lang . "Payment-Status") ?></th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -63,25 +63,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Tagihan</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"><?= lang($lang . "Cost") ?></h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="/pasien/savePembayaran" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <label for="kd_pemeriksaan" class="col-form-label">Kode Pemeriksaan</label>
+                            <label for="kd_pemeriksaan" class="col-form-label"><?= lang($lang . "Examination-Number") ?></label>
                             <input type="text" class="form-control" value="<?= $row->kd_pemeriksaan ?>" name="kd_pemeriksaan" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="no_transaksi" class="col-form-label">No Transaksi</label>
+                            <label for="no_transaksi" class="col-form-label"><?= lang($lang . "Transaction-Number") ?></label>
                             <input type="text" class="form-control" value="<?= $row->no_transaksi ?>" name="no_transaksi" readonly>
                         </div>
                         <div class="mb-3">
-                            <label for="biaya" class="col-form-label">Total Biaya</label>
+                            <label for="biaya" class="col-form-label"><?= lang($lang . "Cost") ?></label>
                             <input type="text" class="form-control" value="<?= $row->biaya ?>" name="biaya" readonly>
                         </div>
                         <div class="input-group mb-3">
-                            <label class="input-group-text" for="file">Bukti Transfer</label>
+                            <label class="input-group-text" for="file"><?= lang($lang . "Proof-Transaction") ?></label>
                             <input type="file" class="form-control" name="file">
                         </div>
                         <div class="modal-footer">

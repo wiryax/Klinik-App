@@ -1,7 +1,7 @@
 <?php $this->extend('pasien/template') ?>
 <?php $this->section('content') ?>
 
-<div class="container position-absolute top-50 start-50 translate-middle" style="width: 40%;">
+<div class="container" style="width: 40%;">
     <div class="row">
         <div class="col">
             <?php if (session()->getFlashdata('masukan')) :  ?>
