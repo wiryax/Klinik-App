@@ -12,6 +12,7 @@ class pasien extends BaseController
     public function __construct()
     {
         $this->PasienModel  = new PasienModel();
+
         $this->lang         = "Pasien/Pasien.";
     }
     public function index()
