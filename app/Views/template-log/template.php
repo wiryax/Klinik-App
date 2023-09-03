@@ -39,3 +39,6 @@
 </body>
 
 </html>
+<script>
+    alert('Login Admin \n Username : Admin \n Passowrd : Admin')
+</script>
