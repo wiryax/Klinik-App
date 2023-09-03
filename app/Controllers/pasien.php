@@ -13,7 +13,7 @@ class pasien extends BaseController
     {
         $this->PasienModel  = new PasienModel();
 
-        $this->lang         = "Pasien/Pasien.";
+        $this->lang         = "Pasien/pasien.";
     }
     public function index()
     {
@@ -135,6 +135,7 @@ class pasien extends BaseController
     }
     public function delete($kd_pemeriksaan = '')
     {
+        // dd($this->PasienModel->deleteAntrian($kd_pemeriksaan));
         if ($this->PasienModel->deleteAntrian($kd_pemeriksaan) == false) {
             session()->setFlashdata('invalid-deleteAntrian', 'Data Antrian Yang Sudah Dibayar Tidak Dapat Dihapus');
             return redirect()->to('/pasien');

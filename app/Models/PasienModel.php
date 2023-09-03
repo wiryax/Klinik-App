@@ -90,10 +90,8 @@ class PasienModel extends Model
     {
         $cekDataResep = $this->db->table('resep_obat')->select('kd_resep')->where('kd_pemeriksaan', $kd_pemeriksaan);
         $cekStatusPembayaran = $this->db->table('pembayaran')->select('status')->where('kd_pemeriksaan', $kd_pemeriksaan);
-        // return $cekStatusPembayaran->get()->getResult()[0] == "Menunggu Verifikasi" || $cekStatusPembayaran->get()->getResult()[0] == "Lunas" ? true : false;
-        // die;
         if ($cekStatusPembayaran->countAllResults() != 0)
-            if ($cekStatusPembayaran->get()->getResult()[0] == "Menunggu Verifikasi" || $cekStatusPembayaran->get()->getResult()[0] == "Lunas") {
+            if ($cekStatusPembayaran->get()->getResult()[0]->status === "Menunggu Verifikasi" || $cekStatusPembayaran->get()->getResult()[0]->status === "Lunas") {
                 return false;
             } else {
                 if ($cekDataResep->countAllResults() == 0) {
@@ -101,11 +99,11 @@ class PasienModel extends Model
                     $this->db->table('pembayaran')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
                     return true;
                 } else {
-                    $kd_resep = $cekDataResep->get()->getResult();
+                    $kd_resep = $this->db->table('resep_obat')->select('kd_resep')->where('kd_pemeriksaan', $kd_pemeriksaan)->get()->getResult();
                     $this->db->table('informasi_pemeriksaan')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
                     $this->db->table('pembayaran')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
                     $this->db->table('resep_obat')->delete(['kd_pemeriksaan' => $kd_pemeriksaan]);
-                    $this->db->table('item_obat')->delete($kd_resep);
+                    $this->db->table('item_obat')->delete(['kd_resep' => $kd_resep[0]->kd_resep]);
                     return true;
                 }
             }

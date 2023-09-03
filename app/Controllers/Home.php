@@ -5,10 +5,12 @@ namespace App\Controllers;
 use App\Models\LoginModel;
 use App\Models\PasienModel;
 
+
 class Home extends BaseController
 {
     public function __construct()
     {
+        helper('cookie');
         $this->lang = "Home/Home.";
     }
     public function index()

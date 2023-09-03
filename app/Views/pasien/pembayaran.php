@@ -20,39 +20,41 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <table class="table align-middle text-center">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th><?= lang($lang . "Payment-Date") ?></th>
-                        <th><?= lang($lang . "Payment-Status") ?></th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($dataPembayaran)) { ?>
+            <div class="table-responsive-sm">
+                <table class="table align-middle text-center">
+                    <thead>
                         <tr>
-                            <td colspan="4" class="h4">Tidak Ada Data Pembayaran</td>
+                            <th>No.</th>
+                            <th><?= lang($lang . "Payment-Date") ?></th>
+                            <th><?= lang($lang . "Payment-Status") ?></th>
+                            <th>Action</th>
                         </tr>
-                    <?php } else { ?>
-                        <?php
-                        $i = 1;
-                        foreach ($dataPembayaran as $row) :
-                        ?>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($dataPembayaran)) { ?>
                             <tr>
-                                <td><?= $i ?></td>
-                                <td><?= $row->tgl ?></td>
-                                <td>
-                                    <div class="badge text-bg-success"><?= $row->status ?></div>
-                                </td>
-                                <td><button type="button" class="btn btn-primary <?= ($row->status === 'Lunas' || $row->biaya == 0) ? 'disabled' : ''; ?>" data-bs-toggle="modal" data-bs-target="#<?= $row->kd_pemeriksaan ?>" value="">Bayar</button></td>
+                                <td colspan="4" class="h4">Tidak Ada Data Pembayaran</td>
                             </tr>
-                    <?php
-                            $i++;
-                        endforeach;
-                    } ?>
-                </tbody>
-            </table>
+                        <?php } else { ?>
+                            <?php
+                            $i = 1;
+                            foreach ($dataPembayaran as $row) :
+                            ?>
+                                <tr>
+                                    <td><?= $i ?></td>
+                                    <td><?= $row->tgl ?></td>
+                                    <td>
+                                        <div class="badge text-bg-success"><?= $row->status ?></div>
+                                    </td>
+                                    <td><button type="button" class="btn btn-primary <?= ($row->status === 'Lunas' || $row->biaya == 0) ? 'disabled' : ''; ?>" data-bs-toggle="modal" data-bs-target="#<?= $row->kd_pemeriksaan ?>" value="">Bayar</button></td>
+                                </tr>
+                        <?php
+                                $i++;
+                            endforeach;
+                        } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
